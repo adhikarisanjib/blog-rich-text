@@ -1,0 +1,118 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}{% endblock title %}
+    </title>
+
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body class="bg-gray-100 dark:text-white dark:bg-gray-900">
+
+    {% include 'snippets/navbar.html' %}
+
+    <div class="flex flex-grow justify-center mt-24 md:mt-20">
+        {% block content %}{% endblock content %}
+    </div>
+
+</body>
+
+<script>
+    // Retrieve theme from localStorage or fallback to system default
+    let theme = localStorage.getItem("theme");
+
+    if (!theme) {
+        // Check system preference
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        theme = prefersDark ? "dark" : "light";
+        localStorage.setItem("theme", theme);
+    }
+
+    // Apply the theme
+    if (theme === "dark") {
+        document.documentElement.classList.add("dark");
+    } else {
+        document.documentElement.classList.remove("dark");
+    }
+    console.log(theme);
+
+    // Function to toggle theme
+    function toggleTheme() {
+        let currentTheme = localStorage.getItem("theme");
+        if (currentTheme === "dark") {
+            document.documentElement.classList.remove("dark");
+            localStorage.setItem("theme", "light");
+            console.log("light");
+        } else {
+            document.documentElement.classList.add("dark");
+            localStorage.setItem("theme", "dark");
+            console.log("dark");
+        }
+    }
+
+    // Add event listeners to toggle buttons
+    document.getElementById("id-theme-toggler").addEventListener("click", function (e) {
+        e.preventDefault();
+        toggleTheme();
+    });
+
+    document.getElementById("id-theme-toggler-mob").addEventListener("click", function (e) {
+        e.preventDefault();
+        toggleTheme();
+    });
+
+    // Format lists and headings
+    function formatLists() {
+        let uls = document.querySelectorAll('ul');
+        uls.forEach(ul => {
+            ul.classList.add('list-disc', 'list-inside');
+        });
+
+        let ols = document.querySelectorAll('ol');
+        ols.forEach(ol => {
+            ol.classList.add('list-decimal', 'list-inside');
+        });
+
+        let h1s = document.querySelectorAll('h1');
+        h1s.forEach(h1 => {
+            h1.classList.add('text-2xl', 'font-bold');
+        });
+
+        let h2s = document.querySelectorAll('h2');
+        h2s.forEach(h2 => {
+            h2.classList.add('text-xl', 'font-bold');
+        });
+
+        let h3s = document.querySelectorAll('h3');
+        h3s.forEach(h3 => {
+            h3.classList.add('text-lg', 'font-bold');
+        });
+
+        let h4s = document.querySelectorAll('h4');
+        h4s.forEach(h4 => {
+            h4.classList.add('text-base', 'font-bold');
+        });
+
+        let h5s = document.querySelectorAll('h5');
+        h5s.forEach(h5 => {
+            h5.classList.add('text-sm', 'font-bold');
+        });
+
+        let h6s = document.querySelectorAll('h6');
+        h6s.forEach(h6 => {
+            h6.classList.add('text-xs', 'font-bold');
+        });
+    }
+
+    formatLists();
+</script>
+
+</html>
