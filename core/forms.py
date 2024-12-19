@@ -10,8 +10,8 @@ User = get_user_model()
 
 
 class LoginForm(forms.Form):
-    email = forms.EmailField(max_length=255, widget=forms.EmailInput(attrs={"class": "w-full my-2 p-2 bg-gray-100 dark:bg-gray-900 rounded-md border"}))
-    password = forms.CharField(max_length=255, widget=forms.PasswordInput(attrs={"class": "w-full my-2 p-2 bg-gray-100 dark:bg-gray-900 rounded-md border"}))
+    email = forms.EmailField(max_length=255, widget=forms.EmailInput(attrs={"class": "w-full my-2 p-2 bg-transparent rounded-md border"}))
+    password = forms.CharField(max_length=255, widget=forms.PasswordInput(attrs={"class": "w-full my-2 p-2 bg-transparent rounded-md border"}))
 
     def clean_email(self):
         email = self.cleaned_data["email"]
@@ -28,11 +28,11 @@ class LoginForm(forms.Form):
 
 
 class RegistrationForm(forms.ModelForm):
-    email = forms.EmailField(max_length=127, widget=forms.EmailInput(attrs={"class": "w-full my-2 p-2 bg-gray-100 dark:bg-gray-900 rounded-md border"}))
+    email = forms.EmailField(max_length=127, widget=forms.EmailInput(attrs={"class": "w-full my-2 p-2 bg-transparent rounded-md border"}))
     password1 = forms.CharField(
         label="Password",
         max_length=255,
-        widget=forms.PasswordInput(attrs={"class": "w-full my-2 p-2 bg-gray-100 dark:bg-gray-900 rounded-md border"}),
+        widget=forms.PasswordInput(attrs={"class": "w-full my-2 p-2 bg-transparent rounded-md border"}),
         help_text=mark_safe(
             """
             <span class="text-sm">Your password can’t be too similar to your other personal information.</span><br>
@@ -45,7 +45,7 @@ class RegistrationForm(forms.ModelForm):
     password2 = forms.CharField(
         label="Confirm Password",
         max_length=255,
-        widget=forms.PasswordInput(attrs={"class": "w-full my-2 p-2 bg-gray-100 dark:bg-gray-900 rounded-md border"}),
+        widget=forms.PasswordInput(attrs={"class": "w-full my-2 p-2 bg-transparent rounded-md border"}),
         help_text="Enter the same password as before, for verification.",
     )
 
@@ -53,8 +53,8 @@ class RegistrationForm(forms.ModelForm):
         model = User
         fields = ("avatar", "email", "name", "password1", "password2")
         widgets = {
-            "avatar": CustomFileInput(attrs={"class": "w-full my-2 p-2 bg-gray-100 dark:bg-gray-900 rounded-md border"}),
-            "name": forms.TextInput(attrs={"class": "w-full my-2 p-2 bg-gray-100 dark:bg-gray-900 rounded-md border"}),
+            "avatar": CustomFileInput(attrs={"class": "w-full my-2 p-2 bg-transparent rounded-md border"}),
+            "name": forms.TextInput(attrs={"class": "w-full my-2 p-2 bg-transparent rounded-md border"}),
         }
 
     def clean_password2(self):
@@ -89,9 +89,9 @@ class UserUpdateForm(forms.ModelForm):
         model = User
         fields = ("avatar", "email", "name", "contact_number")
         widgets = {
-            "email": forms.EmailInput(attrs={"class": "w-full my-2 p-2 bg-gray-100 dark:bg-gray-900 rounded-md border"}),
-            "name": forms.TextInput(attrs={"class": "w-full my-2 p-2 bg-gray-100 dark:bg-gray-900 rounded-md border"}),
-            "contact_number": forms.TextInput(attrs={"type": "tel", "class": "w-full my-2 p-2 bg-gray-100 dark:bg-gray-900 rounded-md border"}),
+            "email": forms.EmailInput(attrs={"class": "w-full my-2 p-2 bg-transparent rounded-md border"}),
+            "name": forms.TextInput(attrs={"class": "w-full my-2 p-2 bg-transparent rounded-md border"}),
+            "contact_number": forms.TextInput(attrs={"type": "tel", "class": "w-full my-2 p-2 bg-transparent rounded-md border"}),
         }
 
     def save(self, commit=True):
@@ -113,19 +113,19 @@ class PasswordChangeForm(forms.Form):
         widget=forms.PasswordInput(attrs={
             "autocomplete": "current-password", 
             "autofocus": True,
-            "class": "w-full my-2 p-2 bg-gray-100 dark:bg-gray-900 rounded-md border"
+            "class": "w-full my-2 p-2 bg-transparent rounded-md border"
             }
         ),
     )
     new_password1 = forms.CharField(
         label=_("New password"),
         strip=False,
-        widget=forms.PasswordInput(attrs={"autocomplete": "new-password", "class": "w-full my-2 p-2 bg-gray-100 dark:bg-gray-900 rounded-md border"}),
+        widget=forms.PasswordInput(attrs={"autocomplete": "new-password", "class": "w-full my-2 p-2 bg-transparent rounded-md border"}),
     )
     new_password2 = forms.CharField(
         label=_("New password confirmation"),
         strip=False,
-        widget=forms.PasswordInput(attrs={"autocomplete": "new-password", "class": "w-full my-2 p-2 bg-gray-100 dark:bg-gray-900 rounded-md border"}),
+        widget=forms.PasswordInput(attrs={"autocomplete": "new-password", "class": "w-full my-2 p-2 bg-transparent rounded-md border"}),
     )
 
     def __init__(self, user, *args, **kwargs):
@@ -168,7 +168,7 @@ class PasswordChangeForm(forms.Form):
 
 
 class PasswordResetRequestForm(forms.Form):
-    email = forms.EmailField(max_length=127, widget=forms.EmailInput(attrs={"class": "w-full my-2 p-2 bg-gray-100 dark:bg-gray-900 rounded-md border"}))
+    email = forms.EmailField(max_length=127, widget=forms.EmailInput(attrs={"class": "w-full my-2 p-2 bg-transparent rounded-md border"}))
 
     def clean_email(self):
         email = self.cleaned_data["email"]
@@ -184,12 +184,12 @@ class PasswordResetForm(forms.Form):
     password1 = forms.CharField(
         label=_("New password"),
         strip=False,
-        widget=forms.PasswordInput(attrs={"autocomplete": "new-password", "class": "w-full my-2 p-2 bg-gray-100 dark:bg-gray-900 rounded-md border"}),
+        widget=forms.PasswordInput(attrs={"autocomplete": "new-password", "class": "w-full my-2 p-2 bg-transparent rounded-md border"}),
     )
     password2 = forms.CharField(
         label=_("New password confirmation"),
         strip=False,
-        widget=forms.PasswordInput(attrs={"autocomplete": "new-password", "class": "w-full my-2 p-2 bg-gray-100 dark:bg-gray-900 rounded-md border"}),
+        widget=forms.PasswordInput(attrs={"autocomplete": "new-password", "class": "w-full my-2 p-2 bg-transparent rounded-md border"}),
     )
 
     def __init__(self, user, *args, **kwargs):

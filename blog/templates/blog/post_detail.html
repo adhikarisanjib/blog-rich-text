@@ -6,7 +6,7 @@
 {% block content %}
     <div class="px-4 py-2 w-[720px]">
 
-        <div class="mb-4 p-2 flex justify-between border-b">
+        <div class="mb-4 py-2 flex justify-between border-b">
             <h1 class="text-2xl font-bold">Blog Post</h1>
         </div>
 
@@ -14,7 +14,7 @@
             <div class="px-4 py-2 w-full rounded-md border">
                 <div class="p-2 flex justify-between border-b ">
                     <h2 class="text-xl font-bold">{{ post.title }}</h2>
-                    <a href="{% url 'blog:post_list_of_user' user_id=post.user.id %}" class="text-blue-500">{{ post.user.username }}</a>
+                    <a href="{% url 'blog:post_list_of_user' user_id=post.user.id %}" class="text-blue-500">{{ post.user.name }}</a>
                 </div>
                 <div class="px-2 py-4 truncate">
                     {{ post.content|safe }}

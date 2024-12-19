@@ -1,4 +1,4 @@
-<nav class="w-full px-8 py-4 mb-4 fixed top-0 z-50 bg-white dark:bg-gray-700 shadow-sm">
+<nav class="w-full px-8 py-4 mb-4 fixed top-0 bg-white dark:bg-gray-700 shadow-sm">
     <!-- Desktop Version -->
     <div class="md:flex justify-between items-center hidden">
         <h1 class="text-2xl font-bold"><a href="{% url 'blog:post_list' %}">Blog</a></h1>
@@ -6,7 +6,7 @@
         <ul class="flex items-center gap-4">
 
             <form action="" onsubmit="return performUserSearch()">
-                <input type="text" name="q" id="id_user_search" class="px-2 py-1 rounded-md border bg-gray-100 dark:bg-gray-900" placeholder="Search user">
+                <input type="text" name="q" id="id_user_search" class="px-2 py-1 rounded-md border bg-transparent" placeholder="Search user">
             </form>
 
             <button id="id-theme-toggler" class="p-2 rounded-md">
@@ -54,9 +54,9 @@
             </div>
         </div>
 
-        <div class="flex flex-col items-center justify-center gap-4 md:hidden" id="id-mobile-nav-links">
+        <div class="flex-col items-center justify-center gap-4 hidden" id="id-mobile-nav-links">
             <form action="" onsubmit="return performUserSearchMobile()">
-                <input type="text" name="q" id="id_user_search_mobile" class="px-2 py-1 rounded-md border bg-gray-100 dark:bg-gray-900" placeholder="Search user">
+                <input type="text" name="q" id="id_user_search_mobile" class="px-2 py-1 rounded-md border bg-transparent" placeholder="Search user">
             </form>
 
             {% if request.user.is_authenticated %}
@@ -91,6 +91,7 @@
 
     navbarToggler.addEventListener("click", function (e) {
         mobileNavLinks.classList.toggle("hidden");
+        mobileNavLinks.classList.toggle("flex");
     });
 
     function performUserSearch() {

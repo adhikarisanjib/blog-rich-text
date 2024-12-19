@@ -1,8 +1,8 @@
-<div class="relative flex justify-center">
+<div class="relative flex justify-center z-25">
     <div class="absolute flex flex-col items-center justify-center mt-2">
         {% if messages %}
             {% for message in messages %}
-            <div class="flex items-center justify-center py-2 pl-8 pr-4 mx-4 my-1 {{ message.tags }}">
+            <div class="flex items-center justify-center py-2 pl-8 pr-4 mx-4 my-1 bg-gray-100 dark:bg-gray-800 shadow-md rounded-md">
                 <span>{{ message|safe }}</span>
                 <button class="ml-8" onclick="return this.parentNode.remove();">
                     <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
