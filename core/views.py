@@ -186,7 +186,6 @@ def delete_account_view(request, *args, **kwargs):
     return redirect("blog:post_list")
 
 
-@login_required()
 def search_account_view(request, *args, **kwargs):
     context = {}
     users = None
@@ -195,11 +194,12 @@ def search_account_view(request, *args, **kwargs):
 
     if request.method == "GET":
         if search_text:
-            users = User.objects.filter(Q(email__icontains=search_text) | Q(name__icontains=search_text)).exclude(
-                id=request.user.id
-            )
+            users = User.objects.filter(Q(email__icontains=search_text) | Q(name__icontains=search_text))
         else:
-            users = User.objects.all().exclude(id=request.user.id)
+            users = User.objects.all()
+
+        if request.user.is_authenticated:
+            users = users.exclude(id=request.user.id)
 
         if users.count() > 100:
             page = request.GET.get("page", 1)

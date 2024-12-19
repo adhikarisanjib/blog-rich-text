@@ -35,14 +35,14 @@
             </div>
         </div>
 
+        {% if user == request.user %}
         <div class="mt-2 py-2 flex gap-2 border-t border-b">
             <a href="{% url 'core:update-profile' %}" class="px-4 py-2 bg-blue-500 text-white rounded-md">Update Profile</a>
-            {% if user == request.user %}
                 <a href="{% url 'core:password-change' %}" class="px-4 py-2 bg-blue-500 text-white rounded-md">Change Password</a>
                 <button type="button" class="px-2 py-1 rounded-md text-white bg-red-500 dark:bg-red-500" id="id_deactivate_account_btn">Deactivate Account</button>
                 <button type="button" class="px-2 py-1 rounded-md text-white bg-red-500 dark:bg-red-500" id="id_delete_account_btn">Delete Account</button>
-            {% endif %}
-        </div>
+            </div>
+        {% endif %}
         
     </div>
 
