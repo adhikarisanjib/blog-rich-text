@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Login{% endblock title %}
+
+{% block content %}
+
+    <div class="px-4 py-2 w-[720px]">
+
+        <div class="mb-4 p-2 flex justify-between border-b">
+            <h1 class="text-2xl font-bold">Login</h1>
+        </div>
+        
+        <form action="" method="post" class="">
+            {% csrf_token %}
+            {% include "snippets/form.html" with form=form %}
+
+            <div class="py-2 flex justify-between items-center border-t">
+                <button type="submit" class="px-2 py-1 rounded-md text-white bg-blue-500 dark:bg-blue-500">Submit</button>
+                <a href="{% url 'core:password-reset-request' %}" class="text-blue-500">Forgot Passowrd</a>
+            </div>
+
+            <div class="py-2 border-t">
+                Need an account? <a href="{% url 'core:register' %}" class="text-blue-500">Register</a>
+            </div>
+
+        </form>
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,26 @@
+<!-- Base form style start -->
+{% for error in form.non_field.errors %}
+<span class="text-red-500">{{ error }}</span>
+{% endfor %}
+{% for field in form.hidden_fields %}
+{{ field }}
+{% for error in field.errors %}
+<span class="text-red-500">{{ error }}</span>
+{% endfor %}
+{% endfor %}
+{% for field in form.visible_fields %}
+<div class="my-4 flex flex-col items-start">
+    <label class="font-medium text-gray-700 dark:text-white" for="{{ field.id_for_label }}">
+        {{ field.label }}
+        {% if field.field.required %} <span>*</span> {% endif %}
+    </label>
+    {{ field }}
+    {% if field.help_text %}
+    <span class="text-sm">{{ field.help_text }}</span>
+    {% endif %}
+    {% for error in field.errors %}
+    <span class="text-red-500">{{ error }}</span>
+    {% endfor %}
+</div>
+{% endfor %}
+<!-- Base form style end -->

@@ -2,10 +2,17 @@
     <!-- Desktop Version -->
     <div class="flex justify-between items-center hidden md:flex">
         <h1 class="text-2xl font-bold"><a href="{% url 'blog:post_list' %}">Blog</a></h1>
+
         <ul class="flex items-center gap-4">
-            <button id="id-theme-toggler" class="p-2 rounded-md border">
+
+            <form action="" onsubmit="return performUserSearch()">
+                <input type="text" name="q" id="id_user_search" class="p-2 rounded-md border bg-gray-100 dark:bg-gray-900" placeholder="Search user">
+            </form>
+
+            <button id="id-theme-toggler" class="p-2 rounded-md">
                 <i class='bx bx-moon'></i>
             </button>
+
             {% if request.user.is_authenticated %}
                 <li class="list-none">
                     <a href="{% url 'blog:post_create' %}" class="px-2 py-1 rounded">Create Post</a>
@@ -14,20 +21,21 @@
                     <a href="{% url 'blog:post_list_of_user' user_id=request.user.id %}" class="px-2 py-1 rounded">My Posts</a>
                 </li>
                 <li class="list-none">
-                    <a href="{% url 'blog:logout' %}" class="px-2 py-1 rounded">Profile</a>
+                    <a href="{% url 'core:profile' %}" class="px-2 py-1 rounded">Profile</a>
                 </li>
                 <li class="list-none">
-                    <a href="{% url 'blog:logout' %}" class="px-2 py-1 rounded">Logout</a>
+                    <a href="{% url 'core:logout' %}" class="px-2 py-1 rounded">Logout</a>
                 </li>
             {% else %}
                 <li class="list-none">
-                    <a href="{% url 'blog:login' %}" class="px-2 py-1 rounded">Login</a>
+                    <a href="{% url 'core:login' %}" class="px-2 py-1 rounded">Login</a>
                 </li>
                 <li class="list-none">
-                    <a href="{% url 'blog:register' %}" class="px-2 py-1 rounded">Register</a>
+                    <a href="{% url 'core:register' %}" class="px-2 py-1 rounded">Register</a>
                 </li>
             {% endif %}
         </ul>
+
     </div>
 
 
@@ -55,17 +63,17 @@
                     <a href="{% url 'blog:post_list_of_user' user_id=request.user.id %}" class="px-2 py-1 rounded">My Posts</a>
                 </li>
                 <li class="list-none">
-                    <a href="{% url 'blog:logout' %}" class="px-2 py-1 rounded">Profile</a>
+                    <a href="{% url 'core:profile' %}" class="px-2 py-1 rounded">Profile</a>
                 </li>
                 <li class="list-none">
-                    <a href="{% url 'blog:logout' %}" class="px-2 py-1 rounded">Logout</a>
+                    <a href="{% url 'core:logout' %}" class="px-2 py-1 rounded">Logout</a>
                 </li>
             {% else %}
                 <li class="list-none">
-                    <a href="{% url 'blog:login' %}" class="px-2 py-1 rounded">Login</a>
+                    <a href="{% url 'core:login' %}" class="px-2 py-1 rounded">Login</a>
                 </li>
                 <li class="list-none">
-                    <a href="{% url 'blog:register' %}" class="px-2 py-1 rounded">Register</a>
+                    <a href="{% url 'core:register' %}" class="px-2 py-1 rounded">Register</a>
                 </li>
             {% endif %}
         </div>
@@ -80,4 +88,10 @@
     navbarToggler.addEventListener("click", function (e) {
         mobileNavLinks.classList.toggle("hidden");
     });
+
+    function performUserSearch() {
+        var searchQuery = document.getElementById("id_user_search").value;
+        window.location.replace("{% url 'core:search-account' %}?q=" + searchQuery);
+        return false;
+    }
 </script>

@@ -7,5 +7,5 @@ static/
 
 .pyc
 .env
+.env.sh
 db.sqlite3
-

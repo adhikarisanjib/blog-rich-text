@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Register{% endblock title %}
+
+{% block content %}
+
+    <div class="px-4 py-2 w-[720px]">
+
+        <div class="mb-4 p-2 flex justify-between border-b">
+            <h1 class="text-2xl font-bold">Register</h1>
+        </div>
+        
+        <form action="" method="post" class="">
+            {% csrf_token %}
+            {% include "snippets/form.html" with form=form %}
+
+            <div class="py-2 flex justify-between border-t">
+                <button type="submit" class="px-2 py-1 rounded-md text-white bg-blue-500 dark:bg-blue-500">Submit</button>
+                <span></span>
+            </div>
+
+            <div class="py-2 border-t">
+                Already have an account? <a href="{% url 'core:login' %}" class="text-blue-500">Login</a>
+            </div>
+
+        </form>
+    </div>
+
+{% endblock content %}

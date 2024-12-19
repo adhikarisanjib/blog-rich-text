@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Profile{% endblock title %}
+
+{% block content %}
+
+    <div class="px-4 py-2 w-[720px]">
+
+        <div class="mb-4 p-2 flex justify-between border-b">
+            <h1 class="text-2xl font-bold">{% if user.name %} {{ user.name }} {% else %} Profile {% endif %}</h1>
+        </div>
+
+        <div class="flex flex-wrap gap-8">
+            <div class="w-64 h-64 p-4 object-cover overflow-hidden">
+                <img src="{{ user.avatar.url }}" alt="profile picture" class="w-full h-full rounded-full">
+            </div>
+
+            <div class="flex flex-col flex-grow mx-4 my-4 px-4 py-4">
+                <h5 class="text-lg">Email :</h5>
+                <h5 class="text-lg">{{ user.email }}</h5>
+                {% if user.name %}
+                <h5 class="text-lg mt-2">Full Name :</h5>
+                <h5 class="text-lg">{{ user.name }}</h5>
+                {% endif %}
+                {% if user.contact_number %}
+                <h5 class="text-lg mt-2">Contact Number :</h5>
+                <h5 class="text-lg">{{ user.contact_number }}</h5>
+                {% endif %}
+                {% if user.is_superuser %}
+                <h5 class="text-lg mt-2">Is superuser :</h5>
+                <h5 class="text-lg">{{ user.is_superuser }}</h5>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="mt-2 py-2 flex gap-2 border-t border-b">
+            <a href="{% url 'core:update-profile' %}" class="px-4 py-2 bg-blue-500 text-white rounded-md">Update Profile</a>
+            {% if user == request.user %}
+                <a href="{% url 'core:password-change' %}" class="px-4 py-2 bg-blue-500 text-white rounded-md">Change Password</a>
+                <button type="button" class="px-2 py-1 rounded-md text-white bg-red-500 dark:bg-red-500" id="id_deactivate_account_btn">Deactivate Account</button>
+                <button type="button" class="px-2 py-1 rounded-md text-white bg-red-500 dark:bg-red-500" id="id_delete_account_btn">Delete Account</button>
+            {% endif %}
+        </div>
+        
+    </div>
+
+    <dialog 
+        id="id_deactivate_account_modal"
+        class="rounded-md p-4 bg-gray-100 dark:bg-gray-700 dark:text-white backdrop:bg-black/25"
+        style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);"
+    >
+        <p>Are you sure you want to deactivate your account?</p>
+        <div class="flex justify-end gap-2 mt-4">
+            <button class="px-2 py-1 rounded text-white bg-red-500 " id="id_cancle_deactivate_account_btn">Cancel</button>
+            <a href="{% url 'core:deactivate-account' %}" class="px-2 py-1 rounded text-white bg-blue-500 dark:bg-blue-500">Deactivate</a>
+        </div>
+    </dialog>
+
+    <dialog
+        id="id_delete_account_modal"
+        class="rounded-md p-4 bg-gray-100 dark:bg-gray-700 dark:text-white backdrop:bg-black/25"
+        style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);"
+    >
+        <p>Are you sure you want to delete your account?</p>
+        <div class="flex justify-end gap-2 mt-4">
+            <button class="px-2 py-1 rounded text-white bg-red-500 " id="id_cancle_delete_account_btn">Cancel</button>
+            <a href="{% url 'core:delete-account' %}" class="px-2 py-1 rounded text-white bg-blue-500 dark:bg-blue-500">Delete</a>
+        </div>
+    </dialog>
+
+    <script>
+
+        "{% if request.user == user %}"
+            const deactivate_account_modal = document.getElementById('id_deactivate_account_modal');
+            const deactivate_account_btn = document.getElementById('id_deactivate_account_btn');
+            const cancle_deactivate_account_btn = document.getElementById('id_cancle_deactivate_account_btn');
+
+            deactivate_account_btn.addEventListener('click', () => {
+                deactivate_account_modal.showModal();
+            });
+
+            cancle_deactivate_account_btn.addEventListener('click', () => {
+                deactivate_account_modal.close();
+            });
+
+            const delete_account_modal = document.getElementById('id_delete_account_modal');
+            const delete_account_btn = document.getElementById('id_delete_account_btn');
+            const cancle_delete_account_btn = document.getElementById('id_cancle_delete_account_btn');
+
+            delete_account_btn.addEventListener('click', () => {
+                delete_account_modal.showModal();
+            });
+
+            cancle_delete_account_btn.addEventListener('click', () => {
+                delete_account_modal.close();
+            });
+        "{% endif %}"
+
+    </script>
+
+{% endblock content %}

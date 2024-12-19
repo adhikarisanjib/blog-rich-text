@@ -1,0 +1,7 @@
+django
+django-debug-toolbar
+pillow
+celery
+django-celery-beat
+python-dotenv
+redis

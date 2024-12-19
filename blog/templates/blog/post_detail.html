@@ -19,7 +19,7 @@
                 <div class="px-2 py-4 truncate">
                     {{ post.content|safe }}
                 </div>
-                <div class="flex justify-between border-t  p-2">
+                <div class="flex justify-between border-t py-2">
                     <div class="flex gap-2">
                         {% if post.user == request.user %}
 
@@ -48,7 +48,12 @@
 
     </div>
 
-    <dialog id="id_delete_modal" class="rounded-md p-4 bg-gray-300 dark:bg-gray-700 dark:text-white backdrop:bg-black/25">
+
+    <dialog 
+        id="id_delete_modal" 
+        class="rounded-md p-4 bg-gray-100 dark:bg-gray-700 dark:text-white backdrop:bg-black/25"
+        style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);"
+    >
         <p>Are you sure you want to delete this post?</p>
         <div class="flex justify-end gap-2 mt-4">
             <button class="px-2 py-1 rounded text-white bg-red-500 " id="id_cancle_delete_post_btn">Cancel</button>
@@ -56,7 +61,12 @@
         </div>
     </dialog>    
 
-    <dialog id="id_publish_modal" class="rounded-md p-4 bg-gray-300 dark:bg-gray-700 dark:text-white backdrop:bg-black/25">
+    
+    <dialog 
+        id="id_publish_modal" 
+        class="rounded-md p-4 bg-gray-100 dark:bg-gray-700 dark:text-white backdrop:bg-black/25"
+        style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);"
+    >
         <p>Are you sure you want to publish this post?</p>
         <div class="flex justify-end gap-2 mt-4">
             <button class="px-2 py-1 rounded text-white bg-red-500 " id="id_cancle_publish_post_btn">Cancel</button>
