@@ -1,7 +1,104 @@
-<div class="px-4 py-2 my-2 w-full rounded-md border">
+{% load static %}
 
-    <div class="mb-4 flex justify-between gap-3 flex-wrap">
-        <select onchange="formatDoc('formatBlock', this.value); this.selectedIndex=0" class="p-2 rounded-md bg-transparent border">
+<div class="px-4 py-4 my-2 w-full rounded-md border">
+
+    <div class="mb-2 flex gap-1">        
+
+        <div class="relative">
+
+            <button class="menu-item px-3 py-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-md" data-collapse-toggle="id_file_menu" aria-controls="id_file_menu" aria-expanded="false">File</button>
+            <div id="id_file_menu" class="hidden absolute z-50 bg-gray-100 dark:bg-gray-600 shadow-md px-4 py-2 border rounded-md">
+                <div class="relative flex flex-col items-start gap-1">
+                    <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="newDocument()">New</button>
+                    <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="openDocument()">Open</button>
+                    <hr class="w-full h-[2px] bg-gray-300 dark:bg-gray-700">
+                    
+                    <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" data-collapse-toggle="id_save_submenu" aria-controls="id_save_submenu" aria-expanded="false">
+                        <span class="flex items-center gap-x-20">
+                            <span>Save</span> 
+                            <i class='bx bxs-chevron-right'></i>
+                        </span>
+                    </button>
+                    <div id="id_save_submenu" class="hidden absolute left-full z-50 bg-gray-100 dark:bg-gray-600 shadow-md px-4 py-2 border rounded-md">
+                        <div class="flex flex-col items-start gap-1">
+                            <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="saveDocument('.txt')">.txt</button>
+                            <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="saveDocument('.html')">.html</button>
+                            <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="saveDocument('.pdf')">.pdf</button>
+                            <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="saveDocument('.docx')">.docx</button>
+                        </div>
+                    </div>
+
+                    <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="printDocument()">Print</button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="relative">
+
+            <button class="menu-item px-3 py-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-md" data-collapse-toggle="id_edit_menu" aria-controls="id_edit_menu" aria-expanded="false">Edit</button>
+            <div id="id_edit_menu" class="hidden absolute z-50 bg-gray-100 dark:bg-gray-600 shadow-md px-4 py-2 border rounded-md">
+                <div class="flex flex-col items-start gap-1">
+                    <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="formatDoc('undo')">Undo</button>
+                    <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="formatDoc('redo')">Redo</button>
+                    <hr class="w-full h-[2px] bg-gray-300 dark:bg-gray-700">
+                    <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="formatDoc('cut')">Cut</button>
+                    <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="formatDoc('copy')">Copy</button>
+                    <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="formatDoc('paste')">Paste</button>
+                    <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="formatDoc('insertText')">Paste without formatting</button>
+                    <hr class="w-full h-[2px] bg-gray-300 dark:bg-gray-700">
+                    <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="formatDoc('selectAll')">Select All</button>
+                    <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="formatDoc('delete')">Delete</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="relative">
+
+            <button class="menu-item px-3 py-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-md" data-collapse-toggle="id_format_menu" aria-controls="id_format_menu" aria-expanded="false">Format</button>
+            <div id="id_format_menu" class="hidden absolute z-50 bg-gray-100 dark:bg-gray-600 shadow-md px-4 py-2 border rounded-md">
+                <div class="flex flex-col items-start gap-1">
+                    <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="formatDoc('bold')">Bold</button>
+                    <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="formatDoc('italic')">Italic</button>
+                    <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="formatDoc('underline')">Underline</button>
+                    <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="formatDoc('strikeThrough')">Strike through</button>
+                    <hr class="w-full h-[2px] bg-gray-300 dark:bg-gray-700">
+                    <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="formatDoc('justifyLeft')">Justify left</button>
+                    <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="formatDoc('justifyCenter')">Justify center</button>
+                    <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="formatDoc('justifyRight')">Justify right</button>
+                    <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="formatDoc('justifyFull')">Justify full</button>
+                    <hr class="w-full h-[2px] bg-gray-300 dark:bg-gray-700">
+                    <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="formatDoc('insertOrderedList')">Ordered list</button>
+                    <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="formatDoc('insertUnorderedList')">Unordered list</button>
+                    <hr class="w-full h-[2px] bg-gray-300 dark:bg-gray-700">
+                    <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="addLink()">Link</button>
+                    <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="formatDoc('unlink')">Unlink</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="relative">
+
+            <button class="menu-item px-3 py-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-md" data-collapse-toggle="id_insert_menu" aria-controls="id_insert_menu" aria-expanded="false">Insert</button>
+            <div id="id_insert_menu" class="hidden absolute z-50 bg-gray-100 dark:bg-gray-600 shadow-md px-4 py-2 border rounded-md">
+                <div class="flex flex-col items-start gap-1">
+                    <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="document.getElementById('imageInput').click()">Image</button>
+                    <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="addYouTubeVideo()">YouTube Video</button>
+                    <hr class="w-full h-[2px] bg-gray-300 dark:bg-gray-700">
+                    <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap">Table</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    
+
+    <div class="mb-4 flex justify-between items-center gap-2 flex-wrap">
+
+        <select onchange="formatDoc('formatBlock', this.value); this.selectedIndex=0" class="">
             <option value="" selected="" hidden="" disabled="">Headings</option>
             <option value="h1">Heading 1</option>
             <option value="h2">Heading 2</option>
@@ -11,7 +108,8 @@
             <option value="h6">Heading 6</option>
             <option value="p">Paragraph</option>
         </select>
-        <select onchange="formatDoc('fontSize', this.value); this.selectedIndex=0" class="p-2 rounded-md bg-transparent border">
+
+        <select onchange="formatDoc('fontSize', this.value); this.selectedIndex=0" class="">
             <option value="" selected="" hidden="" disabled="">Font size</option>
             <option value="1">Extra small</option>
             <option value="2">Small</option>
@@ -21,44 +119,99 @@
             <option value="6">Extra large</option>
         </select>
 
-        <div class="p-2 flex items-center rounded-md bg-transparent border">
+        <div class="px-2 py-1 flex items-center rounded-md bg-transparent border">
             <span class="p-1">Color</span>
             <input type="color" oninput="formatDoc('foreColor', this.value); this.value='#000000'" class="p-1 h-8 w-14 rounded-md bg-transparent">
         </div>
-        <div class="p-2 flex items-center rounded-md bg-transparent border">
+
+        <div class="px-2 py-1 flex items-center rounded-md bg-transparent border">
             <span class="p-1">Background</span>
             <input type="color" oninput="formatDoc('hiliteColor', this.value); this.value='#000000'" class="p-1 h-8 w-14 rounded-md bg-transparent">
         </div>
 
-        <input type="file" id="imageInput" style="display: none;" accept="image/*" onchange="uploadImage(event)">
-        <button class="p-2 rounded-md border" onclick="document.getElementById('imageInput').click()">
-            <i class='bx bx-upload'></i>
-        </button>
+        <div class="relative group">
+            <input type="file" id="imageInput" style="display: none;" accept="image/*" onchange="uploadImage(event)">
+            <button class="p-2 rounded-md border" onclick="document.getElementById('imageInput').click()">
+                <i class='bx bx-upload'></i>
+            </button>
+            <div class="tooltip">upload image</div>
+        </div>
 
-        <button class="p-2 rounded-md border" onclick="addYouTubeVideo()">
-            <i class='bx bxl-youtube'></i>
-        </button>
+        <div class="relative group">
+            <button class="p-2 rounded-md border" onclick="addYouTubeVideo()">
+                <i class='bx bxl-youtube'></i>
+            </button>
+            <div class="tooltip">link youtube video</div>
+        </div>
+
     </div>
 
     <div class="mb-4 flex item-center gap-3 flex-wrap">
-        <button class="p-2 rounded-md border" onclick="formatDoc('undo')"><i class='bx bx-undo'></i></button>
-        <button class="p-2 rounded-md border" onclick="formatDoc('redo')"><i class='bx bx-redo'></i></button>
-        <button class="p-2 rounded-md border" onclick="formatDoc('bold')"><i class='bx bx-bold'></i></button>
-        <button class="p-2 rounded-md border" onclick="formatDoc('underline')"><i class='bx bx-underline'></i></button>
-        <button class="p-2 rounded-md border" onclick="formatDoc('italic')"><i class='bx bx-italic'></i></button>
-        <button class="p-2 rounded-md border" onclick="formatDoc('strikeThrough')"><i class='bx bx-strikethrough'></i></button>
-        <button class="p-2 rounded-md border" onclick="formatDoc('justifyLeft')"><i class='bx bx-align-left'></i></button>
-        <button class="p-2 rounded-md border" onclick="formatDoc('justifyCenter')"><i class='bx bx-align-middle'></i></button>
-        <button class="p-2 rounded-md border" onclick="formatDoc('justifyRight')"><i class='bx bx-align-right'></i></button>
-        <button class="p-2 rounded-md border" onclick="formatDoc('justifyFull')"><i class='bx bx-align-justify'></i></button>
-        <button class="p-2 rounded-md border" onclick="formatDoc('insertOrderedList')"><i class='bx bx-list-ol'></i></button>
-        <button class="p-2 rounded-md border" onclick="formatDoc('insertUnorderedList')"><i class='bx bx-list-ul'></i></button>
-        <button class="p-2 rounded-md border" onclick="addLink()"><i class='bx bx-link'></i></button>
-        <button class="p-2 rounded-md border" onclick="formatDoc('unlink')"><i class='bx bx-unlink'></i></button>
-        <button class="p-2 rounded-md border" id="show-code" data-active="false">&lt;/&gt;</button>
+
+        <div class="relative group">
+            <button class="text-2xl" onclick="formatDoc('undo')"><i class='bx bx-undo'></i></button>
+            <div class="tooltip">undo</div>
+        </div>
+        <div class="relative group">
+            <button class="text-2xl" onclick="formatDoc('redo')"><i class='bx bx-redo'></i></button>
+            <div class="tooltip">redo</div>
+        </div>
+        <div class="relative group">
+            <button class="text-2xl" onclick="formatDoc('bold')"><i class='bx bx-bold'></i></button>
+            <div class="tooltip">bold</div>
+        </div>
+        <div class="relative group">
+            <button class="text-2xl" onclick="formatDoc('underline')"><i class='bx bx-underline'></i></button>
+            <div class="tooltip">underline</div>
+        </div>
+        <div class="relative group">
+            <button class="text-2xl" onclick="formatDoc('italic')"><i class='bx bx-italic'></i></button>
+            <div class="tooltip">italic</div>
+        </div>
+        <div class="relative group">
+            <button class="text-2xl" onclick="formatDoc('strikeThrough')"><i class='bx bx-strikethrough'></i></button>
+            <div class="tooltip">strike through</div>
+        </div>
+        <div class="relative group">
+            <button class="text-2xl" onclick="formatDoc('justifyLeft')"><i class='bx bx-align-left'></i></button>
+            <div class="tooltip">justify left</div>
+        </div>
+        <div class="relative group">
+            <button class="text-2xl" onclick="formatDoc('justifyCenter')"><i class='bx bx-align-middle'></i></button>
+            <div class="tooltip">justify center</div>
+        </div>
+        <div class="relative group">
+            <button class="text-2xl" onclick="formatDoc('justifyRight')"><i class='bx bx-align-right'></i></button>
+            <div class="tooltip">justify right</div>
+        </div>
+        <div class="relative group">
+            <button class="text-2xl" onclick="formatDoc('justifyFull')"><i class='bx bx-align-justify'></i></button>
+            <div class="tooltip">justify full</div>
+        </div>
+        <div class="relative group">
+            <button class="text-2xl" onclick="formatDoc('insertOrderedList')"><i class='bx bx-list-ol'></i></button>
+            <div class="tooltip">ordered list</div>
+        </div>
+        <div class="relative group">
+            <button class="text-2xl" onclick="formatDoc('insertUnorderedList')"><i class='bx bx-list-ul'></i></button>
+            <div class="tooltip">unordered list</div>
+        </div>
+        <div class="relative group">
+            <button class="text-2xl" onclick="addLink()"><i class='bx bx-link'></i></button>
+            <div class="tooltip">link</div>
+        </div>
+        <div class="relative group">
+            <button class="text-2xl" onclick="formatDoc('unlink')"><i class='bx bx-unlink'></i></button>
+            <div class="tooltip">unlink</div>
+        </div>
+        <div class="relative group">
+            <button class="text-xl" id="show-code" data-active="false">&lt;/&gt;</button>
+            <div class="tooltip">show code</div>
+        </div>
+
     </div>
 
-    <div class="w-full p-2 rounded-md border" 
+    <div class="w-full px-4 py-2 rounded-md border" 
         id="id_editable_content" 
         contenteditable="true" 
         spellcheck="false">
@@ -68,14 +221,51 @@
 
 <script>
 
+    // JS for the editor menu popups
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const toggleButtons = document.querySelectorAll('[data-collapse-toggle]');
+
+        toggleButtons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                const targetId = button.getAttribute('data-collapse-toggle');
+                const targetElement = document.getElementById(targetId);
+
+                if (targetElement) {
+                    // Toggle the visibility
+                    const isExpanded = button.getAttribute('aria-expanded') === 'true';
+                    button.setAttribute('aria-expanded', !isExpanded);
+                    targetElement.classList.toggle('hidden');
+                }
+
+                // Prevent click from propagating to the document listener
+                event.stopPropagation();
+            });
+        });
+
+        // Click outside to close all dropdowns
+        document.addEventListener('click', () => {
+            toggleButtons.forEach(button => {
+                const targetId = button.getAttribute('data-collapse-toggle');
+                const targetElement = document.getElementById(targetId);
+
+                if (targetElement && !targetElement.classList.contains('hidden')) {
+                    button.setAttribute('aria-expanded', 'false');
+                    targetElement.classList.add('hidden');
+                }
+            });
+        });
+    });
+
+
+    // JS for the rich text editor
+
     function formatDoc(cmd, value = null) {
         if (value) {
             document.execCommand(cmd, false, value);
         } else {
             document.execCommand(cmd);
         }
-
-        formatLists();
     }
 
     function addLink() {
@@ -83,31 +273,6 @@
         if (url) {
             formatDoc('createLink', url);
         }
-    }
-
-    const id_editable_content = document.getElementById('id_editable_content');
-    const showCode = document.getElementById('show-code');
-    let active = false;
-
-    // Toggle HTML code view
-    showCode.addEventListener('click', function () {
-        active = !active;
-        showCode.dataset.active = active;
-        if (active) {
-            id_editable_content.textContent = id_editable_content.innerHTML.trim();
-            id_editable_content.setAttribute('contenteditable', false);
-        } else {
-            id_editable_content.innerHTML = id_editable_content.textContent;
-            id_editable_content.setAttribute('contenteditable', true);
-        }
-    });
-
-    function submitForm() {
-        const title = document.getElementById('id_editable_title').value;
-        const content = id_editable_content.innerHTML;
-        document.getElementById('id_title').value = title;
-        document.getElementById('id_content').value = content;
-        document.querySelector('form').submit();
     }
 
     function uploadImage(event) {
@@ -142,6 +307,139 @@
             }
         }
     }
-    
+
+    // Toggle HTML code view
+
+    const id_editable_content = document.getElementById('id_editable_content');
+    const showCode = document.getElementById('show-code');
+    let active = false;
+
+    showCode.addEventListener('click', function () {
+        active = !active;
+        showCode.dataset.active = active;
+        if (active) {
+            id_editable_content.textContent = id_editable_content.innerHTML.trim();
+            id_editable_content.setAttribute('contenteditable', false);
+        } else {
+            id_editable_content.innerHTML = id_editable_content.textContent;
+            id_editable_content.setAttribute('contenteditable', true);
+        }
+    });
+
+
+    // JS for the file menu
+
+    function newDocument() {
+      if (confirm("Are you sure you want to create a new document? Unsaved changes will be lost.")) {
+        document.getElementById('id_editable_content').innerHTML = '';
+      }
+    }
+
+    function openDocument() {
+      const fileInput = document.createElement('input');
+      fileInput.type = 'file';
+      fileInput.accept = '.txt, .html';
+      fileInput.onchange = () => {
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          document.getElementById('id_editable_content').innerHTML = e.target.result;
+        };
+        reader.readAsText(file);
+      };
+      fileInput.click();
+    }
+
+    function saveDocument(fileType) {
+        const editor = document.getElementById('id_editable_content');
+
+        let blob, content, fullHTML;
+
+        switch (fileType) {
+            case '.txt':
+                content = editor.innerText;
+                blob = new Blob([content], { type: 'text/plain' });
+                break;
+
+            case '.html':
+                content = editor.innerHTML;
+                fullHTML = `
+                    <!DOCTYPE html>
+                    <html lang="en">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>Document</title>
+                    </head>
+                    <body>
+                        ${content}
+                    </body>
+                    </html>
+                `;
+                blob = new Blob([fullHTML], { type: 'text/html' });
+                break;
+
+            case '.pdf':
+                let theme = localStorage.getItem("theme");
+                if (theme === "dark") {
+                    alert('PDF export does not support dark mode. Please switch to light mode.');
+                    return;
+                }
+                html2pdf().set({
+                    margin: 1,
+                    filename: 'document.pdf',
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2, logging: true, dpi: 192, letterRendering: true },
+                    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+                }).from(editor.innerHTML).save();
+                return;
+
+            case '.docx':
+                let preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
+                let postHtml = "</body></html>";
+                let html = preHtml + editor.innerHTML + postHtml;
+
+                blob = new Blob(['\ufeff', html], {
+                    type: 'application/msword'
+                });
+                break;
+
+            default:
+                alert('Unsupported file type');
+                return;
+        }
+
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'document' + fileType;
+        link.click();
+    }
+
+    function printDocument() {
+      const content = document.getElementById('id_editable_content').innerHTML;
+      const printWindow = window.open('', '_blank');
+      printWindow.document.write(`
+        <html>
+          <head><title>Print Document</title></head>
+          <body>${content}</body>
+        </html>
+      `);
+      printWindow.document.close();
+      printWindow.print();
+    }
+
+
+    // Submit the form with the content from the editor
+
+    function submitForm() {
+        const title = document.getElementById('id_editable_title').value;
+        const content = id_editable_content.innerHTML;
+        document.getElementById('id_title').value = title;
+        document.getElementById('id_content').value = content;
+        document.querySelector('form').submit();
+    }
+
 </script>
 
+<script src="{% static 'js/html2pdf.js' %}"></script>

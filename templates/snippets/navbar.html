@@ -6,7 +6,7 @@
         <ul class="flex items-center gap-4">
 
             <form action="" onsubmit="return performUserSearch()">
-                <input type="text" name="q" id="id_user_search" class="px-2 py-1 rounded-md border bg-transparent" placeholder="Search user">
+                <input type="search" name="q" id="id_user_search" class="" placeholder="Search user">
             </form>
 
             <button id="id-theme-toggler" class="p-2 rounded-md">
@@ -56,7 +56,7 @@
 
         <div class="flex-col items-center justify-center gap-4 hidden" id="id-mobile-nav-links">
             <form action="" onsubmit="return performUserSearchMobile()">
-                <input type="text" name="q" id="id_user_search_mobile" class="px-2 py-1 rounded-md border bg-transparent" placeholder="Search user">
+                <input type="search" name="q" id="id_user_search_mobile" class="" placeholder="Search user">
             </form>
 
             {% if request.user.is_authenticated %}

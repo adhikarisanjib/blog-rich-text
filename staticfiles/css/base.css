@@ -11,3 +11,76 @@
   font-family: 'Poppins', sans-serif;
   outline: none;
 }
+
+@layer base {
+  body {
+    @apply dark:text-white bg-gray-100  dark:bg-gray-900
+  }
+
+  h1 {
+    @apply text-[2.5rem] font-bold;
+  }
+
+  h2 {
+    @apply text-[2rem] font-bold;
+  }
+
+  h3 {
+    @apply text-[1.75rem] font-bold;
+  }
+
+  h4 {
+    @apply text-[1.5rem] font-bold;
+  }
+
+  h5 {
+    @apply text-[1.25rem] font-bold;
+  }
+
+  h6 {
+    @apply text-[1rem] font-bold;
+  }
+
+  ul {
+    @apply list-disc list-inside;
+  }
+
+  ol {
+    @apply list-decimal list-inside;
+  }
+
+  [type="email"],
+  [type="password"],
+  [type="text"],
+  [type="tel"],
+  [type="datetime-local"],
+  textarea {
+    @apply w-full px-3 py-2 my-2 border rounded-md shadow-sm bg-gray-100 dark:bg-gray-900;
+  }
+
+  [type="search"] {
+    @apply px-2 py-1 border rounded-md shadow-sm bg-gray-100 dark:bg-gray-900;
+  }
+
+  select {
+    @apply appearance-none px-3 py-2 bg-gray-100 dark:bg-gray-900 border rounded-md shadow-sm;
+  }
+
+  .tooltip {
+    @apply absolute bottom-full mb-2 hidden group-hover:flex text-nowrap bg-gray-300 dark:bg-gray-700 text-white text-sm px-2 py-1 rounded shadow-lg;
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    -webkit-text-fill-color: black; /* Text color */
+    -webkit-box-shadow: 0 0 0px 1000px transparent; /* Background color */
+    transition: background-color 5000s ease-in-out 0s; /* Prevent transition */
+  }
+
+  .dark input:-webkit-autofill,
+  .dark input:-webkit-autofill:hover,
+  .dark input:-webkit-autofill:focus {
+    -webkit-text-fill-color: white; /* Text color */
+  }
+}
