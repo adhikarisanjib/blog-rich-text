@@ -82,6 +82,7 @@ def login_view(request, *args, **kwargs):
 
             if not user.is_active:
                 user.is_active = True
+                user.save()
 
             if not user.is_email_verified:
                 site = get_current_site(request)

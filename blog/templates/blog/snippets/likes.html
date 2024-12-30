@@ -1,0 +1,40 @@
+{% if show_message %}
+    {% include 'snippets/message.html' %}
+{% endif %}
+
+<div id="id-likes-{{ post.id }}" class="px-2 py-1 flex gap-4 border-t">
+    <div class="flex items-center gap-1">
+        <p class="ml-2">{{ post.like_count }}</p>
+        <button 
+            {% if not request.user.is_authenticated %} disabled {% endif %}
+            class="px-2 py-1 rounded-md hover:bg-gray-200 dark:hover:bg-gray-800 disabled:cursor-not-allowed"
+            hx-get="{% url 'blog:post_like' pk=post.id %}"
+            hx-trigger="click"
+            hx-target="#id-likes-{{ post.id }}"
+            hx-swap="outerHTML"
+        >
+            {% if request.user in post.likes.all %}
+                <i class="bx bxs-like text-2xl text-blue-600"></i>
+            {% else %}
+                <i class="bx bx-like text-2xl"></i>
+            {% endif %}
+        </button>
+    </div>
+    <div class="flex items-center gap-1">
+        <p class="ml-2">{{ post.dislike_count }}</p>
+        <button 
+            {% if not request.user.is_authenticated %} disabled {% endif %}
+            class="px-2 py-1 rounded-md hover:bg-gray-200 dark:hover:bg-gray-800 disabled:cursor-not-allowed"
+            hx-get="{% url 'blog:post_dislike' pk=post.id %}"
+            hx-trigger="click"
+            hx-target="#id-likes-{{ post.id }}"
+            hx-swap="outerHTML"
+        >
+            {% if request.user in post.dislikes.all %}
+                <i class="bx bxs-dislike text-2xl text-red-600"></i>
+            {% else %}
+                <i class="bx bx-dislike text-2xl"></i>
+            {% endif %}
+        </button>
+    </div>
+</div>

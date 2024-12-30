@@ -1,6 +1,9 @@
 import uuid
 
-from .models import Post
+from django.db.models import F, Value
+from django.db.models.expressions import RawSQL
+
+from .models import Post, Comment
 
 
 def create_post_slug(title):

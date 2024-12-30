@@ -9,20 +9,28 @@
         {% if posts %}
 
             {% for post in posts %}
+
                 <div class="px-4 py-2 mb-4 w-full rounded-md border ">
+
                     <div class="p-2 flex justify-between border-b ">
                         <h2 class="text-xl font-bold">{{ post.title }}</h2>
                         <a href="{% url 'blog:post_list_of_user' user_id=post.user.id %}" class="text-blue-500">{{ post.user.name }}</a>
                     </div>
+
                     <div class="px-2 pt-4 mb-4 overflow-hidden text-ellipsis break-words line-clamp-[5]">
                         {{ post.content|safe }}
                     </div>
+
+                    {% include 'blog/snippets/likes.html' %}
+
                     <div class="flex justify-between border-t py-2">
                         <a href="{% url 'blog:post_detail' pk=post.id %}" class="px-2 py-1 rounded text-white bg-blue-500 dark:bg-blue-500">Read more</a>
                         <p>{{ post.created_at|date:"N d, Y" }}</p>
                     </div>
+                    
                 </div>
             {% endfor %}
+
 
         {% else %}
 

@@ -24,7 +24,7 @@
         
         <div class="my-2">
             <label for="id_editable_content">Content</label>
-            {% include 'widgets/rich_text_editor.html' with rich_text_content='' %}
+            {% include 'blog/widgets/rich_text_editor.html' with rich_text_content='' %}
             {% for error in form.content.errors %}
                 <p class="text-red-500">{{ error }}</p>
             {% endfor %}
