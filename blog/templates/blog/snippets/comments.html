@@ -22,6 +22,7 @@
         {% if comment.parent == None %}
 
             <div>
+
                 <div class="my-2 flex gap-2">
                     <div class="w-8 h-8 object-cover">
                         <img src="{{ comment.user.avatar.url }}" alt="profile_pic" class="w-8 h-8 rounded-full">
@@ -32,13 +33,13 @@
                     </div>
                 </div>
 
-                <div id="id_comment_div_{{ comment.id }}">
+                <div id="id_comment_div_{{ comment.id }}" class="">
                     <button id="id_{{ comment.id }}" class="ml-10 text-blue-500" onclick="toggleReply('{{ comment.id }}')">reply</button>
                     <form 
                         method="post" 
                         id="id_form_{{ comment.id }}"
                         class="ml-8 hidden" 
-                        hx-post="{% url 'blog:reply_create' post_id=post.id comment_id=comment.id %}"
+                        hx-post="{% url 'blog:reply_create' comment_id=comment.id %}"
                         hx-target="#id_comment_div_{{ comment.id }}"
                         hx-swap="outerHTML"
                     >
@@ -49,51 +50,21 @@
                             <button type="submit" class="px-3 py-2 mr-1 flex items-center bg-blue-500 rounded-md"><i class="bx bx-send"></i></button>
                         </div>
                     </form>
+
+                    {% if comment.reply_count > 0 %}
+                        <p class="ml-8">
+                            <button 
+                                class="ml-2 text-blue-500"
+                                hx-trigger="click"
+                                hx-get="{% url 'blog:replies_list' comment_id=comment.id %}"
+                                hx-swap="outerHTML"
+                            >
+                                {{ comment.reply_count }} replies
+                            </button>
+                        </p>
+                    {% endif %}
                 </div>
                 
-                {% for reply in comment.replies.all %}
-                    <div class="ml-8 my-2 flex gap-2">
-                        <div class="w-8 h-8 object-cover">
-                            <img src="{{ reply.user.avatar.url }}" alt="profile_pic" class="w-8 h-8 rounded-full">
-                        </div>
-                        <div class="px-4 py-2 max-w-60 flex flex-col border rounded-md">
-                            <a href="{% url 'blog:post_list_of_user' user_id=reply.user.id %}" class="text-blue-600 text-xs font-bold">{{ reply.user.name }}</a>
-                            <span class="text-sm">{{ reply.content }}</span>
-                        </div>
-                    </div>
-
-                    <div id="id_reply_div_{{ reply.id }}">
-                        <button id="id_{{ reply.id }}" class="ml-20 text-blue-500" onclick="toggleReply('{{ reply.id }}')">reply</button>
-                        <form 
-                            method="post"  
-                            id="id_form_{{ reply.id }}"
-                            class="ml-16 hidden" 
-                            hx-post="{% url 'blog:reply_create' post_id=post.id comment_id=reply.id %}"
-                            hx-target="#id_reply_div_{{ reply.id }}"
-                            hx-swap="outerHTML"
-                        >
-                            {% csrf_token %}
-                            <div class="flex items-center gap-2">
-                                <img src="{{ request.user.avatar.url }}" alt="profile_pic" class="w-8 h-8 rounded-full">
-                                <input name="content" type="text" class="w-full max-w-60 px-2 py-1 border rounded-md" placeholder="Add a reply">
-                                <button type="submit" class="px-3 py-2 mr-1 flex items-center bg-blue-500 rounded-md"><i class="bx bx-send"></i></button>
-                            </div>
-                        </form>
-                    </div>
-
-                    {% for reply_reply in reply.replies.all %}
-                    <div class="ml-16 my-2 flex gap-2">
-                        <div class="w-8 h-8 object-cover">
-                            <img src="{{ reply_reply.user.avatar.url }}" alt="profile_pic" class="w-8 h-8 rounded-full">
-                        </div>
-                        <div class="px-4 py-2 max-w-60 flex flex-col border rounded-md">
-                            <a href="{% url 'blog:post_list_of_user' user_id=reply_reply.user.id %}" class="text-blue-600 text-xs font-bold">{{ reply_reply.user.name }}</a>
-                            <span class="text-sm">{{ reply_reply.content }}</span>
-                        </div>
-                    </div>
-                    {% endfor %}
-                    
-                {% endfor %}
             </div>
 
         {% endif %}

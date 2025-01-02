@@ -11,12 +11,22 @@ def post_list(request, pk=None, user_id=None):
     context = {}
 
     if pk:
+        # post = Post.objects.select_related('user').prefetch_related(
+        #     'likes', 
+        #     'dislikes', 
+        #     Prefetch('comments', queryset=Comment.objects.select_related('user').prefetch_related(
+        #             Prefetch('replies', queryset=Comment.objects.select_related('user').prefetch_related('replies'))
+        #         ).filter(parent=None).order_by('-created_at')
+        # )).annotate(
+        #     like_count=Count('likes'),
+        #     dislike_count=Count('dislikes'),
+        # ).get(pk=pk)
+
         post = Post.objects.select_related('user').prefetch_related(
             'likes', 
             'dislikes', 
-            Prefetch('comments', queryset=Comment.objects.select_related('user').prefetch_related(
-                    Prefetch('replies', queryset=Comment.objects.select_related('user').prefetch_related('replies'))
-                ).filter(parent=None).order_by('-created_at')
+            Prefetch('comments', queryset=Comment.objects.select_related('user') \
+                    .prefetch_related('replies').annotate(reply_count=Count('replies')).filter(parent=None).order_by('-created_at')
         )).annotate(
             like_count=Count('likes'),
             dislike_count=Count('dislikes'),
@@ -149,7 +159,7 @@ def comment_create(request, post_id=None, comment_id=None):
     context = {}
     user = request.user
 
-    if not comment_id:
+    if post_id and not comment_id:
         post = Post.objects.get(pk=post_id)
         if request.method == 'POST':
             content = request.POST.get('content')
@@ -158,23 +168,31 @@ def comment_create(request, post_id=None, comment_id=None):
             context['post'] = post
             return render(request, 'blog/snippets/htmx/comment_snippet.html', context)
         
-    else:
+    return redirect('blog:post_list')
+
+
+def replies_list(request, comment_id=None):
+    context = {}
+
+    if comment_id:
+        replies = Comment.objects.select_related('user') \
+            .prefetch_related('replies').annotate(reply_count=Count('replies')).filter(parent_id=comment_id).order_by('created_at')
+        context['replies'] = replies
+
+    return render(request, 'blog/snippets/reply.html', context)
+
+
+def reply_create(request, comment_id=None):
+    context = {}
+    user = request.user
+
+    if comment_id:
         comment = Comment.objects.select_related('post').get(pk=comment_id)
-        if post_id == comment.post.id and comment.parent is None:
-            if request.method == 'POST':
-                content = request.POST.get('content')
-                reply = Comment.objects.create(content=content, user=user, post=comment.post, parent=comment)
-                context['reply'] = reply
-                context['comment'] = comment
-                return render(request, 'blog/snippets/htmx/reply_snippet.html', context)
-            
-        elif post_id == comment.post.id and comment.parent is not None:
-            print('reply to reply')
-            if request.method == 'POST':
-                content = request.POST.get('content')
-                reply = Comment.objects.create(content=content, user=user, post=comment.post, parent=comment)
-                context['reply_reply'] = reply
-                context['comment'] = comment
-                return render(request, 'blog/snippets/htmx/reply_reply_snippet.html', context)
+        if request.method == 'POST':
+            content = request.POST.get('content')
+            reply = Comment.objects.create(content=content, user=user, post=comment.post, parent=comment)
+            comment = Comment.objects.select_related('user').prefetch_related('replies').annotate(reply_count=Count('replies')).get(pk=comment_id)
+            context['reply'] = comment
+            return render(request, 'blog/snippets/htmx/reply_snippet.html', context)
         
     return redirect('blog:post_list')

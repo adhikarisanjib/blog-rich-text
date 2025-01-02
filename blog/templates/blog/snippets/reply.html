@@ -1,26 +1,24 @@
-{% load static %}
-
-{% if comment.parent == None %}
-
-<div>
+{% for reply in replies.all %}
     <div class="my-2 flex gap-2">
         <div class="w-8 h-8 object-cover">
-            <img src="{{ comment.user.avatar.url }}" alt="profile_pic" class="w-8 h-8 rounded-full">
+            <img src="{{ reply.user.avatar.url }}" alt="profile_pic" class="w-8 h-8 rounded-full">
         </div>
         <div class="px-4 py-2 max-w-60 flex flex-col border rounded-md">
-            <a href="{% url 'blog:post_list_of_user' user_id=comment.user.id %}" class="text-blue-600 text-xs font-bold">{{ comment.user.name }}</a>
-            <span class="text-sm">{{ comment.content }}</span>
+            <a href="{% url 'blog:post_list_of_user' user_id=reply.user.id %}" class="text-blue-600 text-xs font-bold">{{ reply.user.name }}</a>
+            <span class="text-sm">{{ reply.content }}</span>
         </div>
     </div>
 
-    <div id="id_comment_div_{{ comment.id }}" class="">
-        <button id="id_{{ comment.id }}" class="ml-10 text-blue-500" onclick="toggleReply('{{ comment.id }}')">reply</button>
+    <div id="id_comment_div_{{ reply.id }}">
+        {% if not reply.parent.parent %}
+        <button id="id_{{ reply.id }}" class="ml-10 text-blue-500" onclick="toggleReply('{{ reply.id }}')">reply</button>
+        {% endif %}
         <form 
-            method="post" 
-            id="id_form_{{ comment.id }}"
+            method="post"  
+            id="id_form_{{ reply.id }}"
             class="ml-8 hidden" 
-            hx-post="{% url 'blog:reply_create' comment_id=comment.id %}"
-            hx-target="#id_comment_div_{{ comment.id }}"
+            hx-post="{% url 'blog:reply_create' comment_id=reply.id %}"
+            hx-target="#id_comment_div_{{ reply.id }}"
             hx-swap="outerHTML"
         >
             {% csrf_token %}
@@ -31,19 +29,18 @@
             </div>
         </form>
 
-        {% if comment.reply_count > 0 %}
+        {% if reply.reply_count > 0 %}
             <p class="ml-8">
                 <button 
                     class="ml-2 text-blue-500"
                     hx-trigger="click"
-                    hx-get="{% url 'blog:replies_list' comment_id=comment.id %}"
+                    hx-get="{% url 'blog:replies_list' comment_id=reply.id %}"
                     hx-swap="outerHTML"
                 >
-                    {{ comment.reply_count }} replies
+                    {{ reply.reply_count }} replies
                 </button>
             </p>
-        {% endif %}
+        {% endif %} 
     </div>
-</div>
-
-{% endif %}
+    
+{% endfor %}

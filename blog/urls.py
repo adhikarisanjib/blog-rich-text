@@ -10,6 +10,9 @@ from .views import (
     post_like,
     post_dislike,
     comment_create,
+    
+    replies_list,
+    reply_create,
 )
 
 
@@ -27,5 +30,7 @@ urlpatterns = [
     path('post/like/<uuid:pk>/', post_like, name='post_like'),
     path('post/dislike/<uuid:pk>/', post_dislike, name='post_dislike'),
     path('comment/create/<uuid:post_id>/', comment_create, name='comment_create'),
-    path('comment/create/<uuid:post_id>/<uuid:comment_id>/', comment_create, name='reply_create'),
+
+    path('replies/<uuid:comment_id>/', replies_list, name='replies_list'),
+    path('reply/create/<uuid:comment_id>/', reply_create, name='reply_create'),
 ]
