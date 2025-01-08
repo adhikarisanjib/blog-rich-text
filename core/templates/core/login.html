@@ -16,12 +16,12 @@
             {% csrf_token %}
             {% include "snippets/form.html" with form=form %}
 
-            <div class="py-2 flex justify-between items-center border-t">
+            <div class="py-2 flex justify-between items-center border-t border-custom">
                 <button type="submit" class="px-2 py-1 rounded-md text-white bg-blue-500 dark:bg-blue-500">Submit</button>
                 <a href="{% url 'core:password-reset-request' %}" class="text-blue-500">Forgot Passowrd</a>
             </div>
 
-            <div class="py-2 border-t">
+            <div class="py-2 border-t border-custom">
                 Need an account? <a href="{% url 'core:register' %}" class="text-blue-500">Register</a>
             </div>
 

@@ -1,13 +1,13 @@
 {% load static %}
 
-<div class="px-4 py-4 my-2 w-full rounded-md border">
+<div class="px-4 py-4 my-2 w-full rounded-md border border-custom">
 
     <div class="mb-2 flex gap-1">        
 
         <div class="relative">
 
             <button class="menu-item px-3 py-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-md" data-collapse-toggle="id_file_menu" aria-controls="id_file_menu" aria-expanded="false">File</button>
-            <div id="id_file_menu" class="hidden absolute z-50 bg-gray-100 dark:bg-gray-600 shadow-md px-4 py-2 border rounded-md">
+            <div id="id_file_menu" class="hidden absolute z-50 bg-gray-100 dark:bg-gray-600 shadow-md px-4 py-2 border border-custom rounded-md">
                 <div class="relative flex flex-col items-start gap-1">
                     <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="newDocument()">New</button>
                     <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="openDocument()">Open</button>
@@ -19,7 +19,7 @@
                             <i class='bx bxs-chevron-right'></i>
                         </span>
                     </button>
-                    <div id="id_save_submenu" class="hidden absolute left-full z-50 bg-gray-100 dark:bg-gray-600 shadow-md px-4 py-2 border rounded-md">
+                    <div id="id_save_submenu" class="hidden absolute left-full z-50 bg-gray-100 dark:bg-gray-600 shadow-md px-4 py-2 border border-custom rounded-md">
                         <div class="flex flex-col items-start gap-1">
                             <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="saveDocument('.txt')">.txt</button>
                             <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="saveDocument('.html')">.html</button>
@@ -37,7 +37,7 @@
         <div class="relative">
 
             <button class="menu-item px-3 py-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-md" data-collapse-toggle="id_edit_menu" aria-controls="id_edit_menu" aria-expanded="false">Edit</button>
-            <div id="id_edit_menu" class="hidden absolute z-50 bg-gray-100 dark:bg-gray-600 shadow-md px-4 py-2 border rounded-md">
+            <div id="id_edit_menu" class="hidden absolute z-50 bg-gray-100 dark:bg-gray-600 shadow-md px-4 py-2 border border-custom rounded-md">
                 <div class="flex flex-col items-start gap-1">
                     <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="formatDoc('undo')">Undo</button>
                     <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="formatDoc('redo')">Redo</button>
@@ -57,7 +57,7 @@
         <div class="relative">
 
             <button class="menu-item px-3 py-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-md" data-collapse-toggle="id_format_menu" aria-controls="id_format_menu" aria-expanded="false">Format</button>
-            <div id="id_format_menu" class="hidden absolute z-50 bg-gray-100 dark:bg-gray-600 shadow-md px-4 py-2 border rounded-md">
+            <div id="id_format_menu" class="hidden absolute z-50 bg-gray-100 dark:bg-gray-600 shadow-md px-4 py-2 border border-custom rounded-md">
                 <div class="flex flex-col items-start gap-1">
                     <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="formatDoc('bold')">Bold</button>
                     <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="formatDoc('italic')">Italic</button>
@@ -82,7 +82,7 @@
         <div class="relative">
 
             <button class="menu-item px-3 py-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-md" data-collapse-toggle="id_insert_menu" aria-controls="id_insert_menu" aria-expanded="false">Insert</button>
-            <div id="id_insert_menu" class="hidden absolute z-50 bg-gray-100 dark:bg-gray-600 shadow-md px-4 py-2 border rounded-md">
+            <div id="id_insert_menu" class="hidden absolute z-50 bg-gray-100 dark:bg-gray-600 shadow-md px-4 py-2 border border-custom rounded-md">
                 <div class="flex flex-col items-start gap-1">
                     <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="document.getElementById('imageInput').click()">Image</button>
                     <button class="px-3 py-1 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-md text-nowrap" onclick="addYouTubeVideo()">YouTube Video</button>
@@ -119,26 +119,26 @@
             <option value="6">Extra large</option>
         </select>
 
-        <div class="px-2 py-1 flex items-center rounded-md bg-transparent border">
+        <div class="px-2 py-1 flex items-center rounded-md bg-transparent border border-custom">
             <span class="p-1">Color</span>
             <input type="color" oninput="formatDoc('foreColor', this.value); this.value='#000000'" class="p-1 h-8 w-14 rounded-md bg-transparent">
         </div>
 
-        <div class="px-2 py-1 flex items-center rounded-md bg-transparent border">
+        <div class="px-2 py-1 flex items-center rounded-md bg-transparent border border-custom">
             <span class="p-1">Background</span>
             <input type="color" oninput="formatDoc('hiliteColor', this.value); this.value='#000000'" class="p-1 h-8 w-14 rounded-md bg-transparent">
         </div>
 
         <div class="relative group">
             <input type="file" id="imageInput" style="display: none;" accept="image/*" onchange="uploadImage(event)">
-            <button class="p-2 rounded-md border" onclick="document.getElementById('imageInput').click()">
+            <button class="p-2 rounded-md border border-custom" onclick="document.getElementById('imageInput').click()">
                 <i class='bx bx-upload'></i>
             </button>
             <div class="tooltip">upload image</div>
         </div>
 
         <div class="relative group">
-            <button class="p-2 rounded-md border" onclick="addYouTubeVideo()">
+            <button class="p-2 rounded-md border border-custom" onclick="addYouTubeVideo()">
                 <i class='bx bxl-youtube'></i>
             </button>
             <div class="tooltip">link youtube video</div>
@@ -211,7 +211,7 @@
 
     </div>
 
-    <div class="w-full px-4 py-2 rounded-md border" 
+    <div class="w-full px-4 py-2 rounded-md border border-custom" 
         id="id_editable_content" 
         contenteditable="true" 
         spellcheck="false">

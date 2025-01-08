@@ -7,7 +7,7 @@
         <div class="w-8 h-8 object-cover">
             <img src="{{ comment.user.avatar.url }}" alt="profile_pic" class="w-8 h-8 rounded-full">
         </div>
-        <div class="px-4 py-2 max-w-60 flex flex-col border rounded-md">
+        <div class="px-4 py-2 max-w-60 flex flex-col border border-custom rounded-md">
             <a href="{% url 'blog:post_list_of_user' user_id=comment.user.id %}" class="text-blue-600 text-xs font-bold">{{ comment.user.name }}</a>
             <span class="text-sm">{{ comment.content }}</span>
         </div>
@@ -26,7 +26,7 @@
             {% csrf_token %}
             <div class="flex items-center gap-2">
                 <img src="{{ request.user.avatar.url }}" alt="profile_pic" class="w-8 h-8 rounded-full">
-                <input name="content" type="text" class="w-full max-w-60 px-2 py-1 border rounded-md" placeholder="Add a reply">
+                <input name="content" type="text" class="w-full max-w-60 px-2 py-1 border border-custom rounded-md" placeholder="Add a reply">
                 <button type="submit" class="px-3 py-2 mr-1 flex items-center bg-blue-500 rounded-md"><i class="bx bx-send"></i></button>
             </div>
         </form>

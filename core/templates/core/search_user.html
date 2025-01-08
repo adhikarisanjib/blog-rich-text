@@ -15,7 +15,7 @@
         {% if users %}
             <div class="flex justify-center flex-wrap gap-4">
                 {% for user in users %}
-                    <div class="flex flex-col items-center border rounded-md gap-4 p-4">
+                    <div class="flex flex-col items-center border border-custom rounded-md gap-4 p-4">
                         <div class="w-16 h-16 object-cover overflow-hidden">
                             <img src="{{ user.avatar.url }}" alt="profile picture" class="w-full h-full rounded-full">
                         </div>
@@ -30,7 +30,7 @@
                 {% endfor %}
             </div>
         {% else %}
-            <div class="px-4 py-2 flex justify-center item-center w-full rounded-md border">
+            <div class="px-4 py-2 flex justify-center item-center w-full rounded-md border border-custom">
                 No users found
             </div>
         {% endif %}

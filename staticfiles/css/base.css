@@ -17,6 +17,10 @@
     @apply dark:text-white bg-gray-100  dark:bg-gray-900
   }
 
+  .border-custom {
+    @apply border-gray-900 dark:border-gray-100;
+  }
+
   h1 {
     @apply text-[2.5rem] font-bold;
   }
@@ -55,15 +59,15 @@
   [type="tel"],
   [type="datetime-local"],
   textarea {
-    @apply w-full px-3 py-2 my-2 border rounded-md shadow-sm bg-gray-100 dark:bg-gray-900;
+    @apply w-full px-3 py-2 my-2 border border-custom rounded-md shadow-sm bg-gray-100 dark:bg-gray-900;
   }
 
   [type="search"] {
-    @apply px-2 py-1 border rounded-md shadow-sm bg-gray-100 dark:bg-gray-900;
+    @apply px-2 py-1 border border-custom rounded-md shadow-sm bg-gray-100 dark:bg-gray-900;
   }
 
   select {
-    @apply appearance-none px-3 py-2 bg-gray-100 dark:bg-gray-900 border rounded-md shadow-sm;
+    @apply appearance-none px-3 py-2 bg-gray-100 dark:bg-gray-900 border border-custom rounded-md shadow-sm;
   }
 
   .tooltip {

@@ -16,12 +16,12 @@
             {% csrf_token %}
             {% include "snippets/form.html" with form=form %}
 
-            <div class="py-2 flex justify-between border-t">
+            <div class="py-2 flex justify-between border-t border-custom">
                 <button type="submit" class="px-2 py-1 rounded-md text-white bg-blue-500 dark:bg-blue-500">Submit</button>
                 <span></span>
             </div>
 
-            <div class="py-2 border-t">
+            <div class="py-2 border-t border-custom">
                 Already have an account? <a href="{% url 'core:login' %}" class="text-blue-500">Login</a>
             </div>
 
