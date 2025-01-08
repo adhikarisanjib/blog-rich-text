@@ -8,7 +8,7 @@
 
     <div class="px-4 py-2 w-[720px]">
 
-        <div class="mb-4 py-2 flex justify-between border-b">
+        <div class="mb-4 py-2 flex justify-between border-b border-custom">
             <h1 class="text-2xl font-bold">{% if user.name %} {{ user.name }} {% else %} Profile {% endif %}</h1>
         </div>
 
@@ -36,7 +36,7 @@
         </div>
 
         {% if user == request.user %}
-        <div class="mt-2 py-2 flex gap-2 border-t border-custom border-b">
+        <div class="mt-2 py-2 flex gap-2 border-t border-custom border-b border-custom">
             <a href="{% url 'core:update-profile' %}" class="px-4 py-2 bg-blue-500 text-white rounded-md">Update Profile</a>
                 <a href="{% url 'core:password-change' %}" class="px-4 py-2 bg-blue-500 text-white rounded-md">Change Password</a>
                 <button type="button" class="px-2 py-1 rounded-md text-white bg-red-500 dark:bg-red-500" id="id_deactivate_account_btn">Deactivate Account</button>
